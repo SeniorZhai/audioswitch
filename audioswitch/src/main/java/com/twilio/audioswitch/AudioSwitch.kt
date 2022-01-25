@@ -376,7 +376,7 @@ class AudioSwitch {
         /**
          * The version of the AudioSwitch library.
          */
-        const val VERSION = BuildConfig.VERSION_NAME
+        const val VERSION = "1.1.5"
 
         private val defaultPreferredDeviceList by lazy {
             listOf(BluetoothHeadset::class.java,

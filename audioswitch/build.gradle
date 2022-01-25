@@ -1,30 +1,21 @@
-apply plugin: 'com.android.library'
-apply plugin: 'signing'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'maven-publish'
+}
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 31
+    compileSdk 31
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 31
+        minSdk 16
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunnerArguments clearPackageData: 'true'
-        consumerProguardFiles 'consumer-rules.pro'
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
-    }
-
-    testOptions {
-        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -33,26 +24,31 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
     implementation "androidx.annotation:annotation:1.3.0"
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
-    testImplementation 'pl.pragmatists:JUnitParams:1.1.1'
-    def androidXTest = '1.4.1-alpha03'
-    androidTestUtil "androidx.test:orchestrator:$androidXTest"
-    androidTestImplementation "androidx.test:runner:$androidXTest"
-    androidTestImplementation "androidx.test:rules:$androidXTest"
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
-task androidSourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.main.java.source
-}
-
-artifacts {
-    archives androidSourcesJar
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.SeniorZhai'
+                artifactId = 'audioswitch'
+                version = '1.1.5'
+            }
+        }
+    }
 }
