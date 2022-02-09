@@ -155,6 +155,10 @@ class AudioSwitch {
      */
     fun start(listener: AudioDeviceChangeListener) {
         audioDeviceChangeListener = listener
+        start()
+    }
+
+    fun start() {
         when (state) {
             STOPPED -> {
                 bluetoothHeadsetManager?.start(bluetoothDeviceConnectionListener)
@@ -376,7 +380,7 @@ class AudioSwitch {
         /**
          * The version of the AudioSwitch library.
          */
-        const val VERSION = "1.1.5"
+        const val VERSION = "1.1.5.1"
 
         private val defaultPreferredDeviceList by lazy {
             listOf(BluetoothHeadset::class.java,
