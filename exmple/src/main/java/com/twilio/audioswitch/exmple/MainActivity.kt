@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         RxPermissions(this)
             .request(Manifest.permission.BLUETOOTH_CONNECT).subscribe({ granted ->
                 if (granted) {
-                    AudioSwitch(
+                    val audioSwitch = AudioSwitch(
                         this, true,
                         preferredDeviceList = listOf(
                             AudioDevice.BluetoothHeadset::class.java,
@@ -27,7 +27,9 @@ class MainActivity : AppCompatActivity() {
                             AudioDevice.Speakerphone::class.java,
                             AudioDevice.Earpiece::class.java
                         )
-                    ).start { audioDevices, selectedAudioDevice ->
+                    )
+                    Log.e("Audio switch", "${audioSwitch.bluetoothHeadsetManager?.hasActivationError()}")
+                    audioSwitch.start { audioDevices, selectedAudioDevice ->
                         text.text = "$audioDevices $selectedAudioDevice"
                         Log.e("Audio switch", "$audioDevices $selectedAudioDevice")
                     }

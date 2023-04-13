@@ -37,7 +37,7 @@ import com.twilio.audioswitch.bluetooth.BluetoothHeadsetManager.HeadsetState.Dis
 private const val TAG = "BluetoothHeadsetManager"
 private const val PERMISSION_ERROR_MESSAGE = "Bluetooth unsupported, permissions not granted"
 
-internal class BluetoothHeadsetManager
+class BluetoothHeadsetManager
 
 @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 internal constructor(
