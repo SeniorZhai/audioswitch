@@ -42,7 +42,7 @@ class AudioSwitch {
     private var userSelectedDevice: AudioDevice? = null
     private var wiredHeadsetAvailable = false
     private val mutableAudioDevices = ArrayList<AudioDevice>()
-    private var bluetoothHeadsetManager: BluetoothHeadsetManager? = null
+    var bluetoothHeadsetManager: BluetoothHeadsetManager? = null
     private val preferredDeviceList: List<Class<out AudioDevice>>
 
     internal var state: State = STOPPED
